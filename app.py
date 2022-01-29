@@ -6,6 +6,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 from pycaret.classification import load_model, predict_model
 import plotly.express as px
+import acessando_blob_storage as abs
 
 #configuração da janela
 st.set_page_config(
@@ -13,6 +14,11 @@ st.set_page_config(
     page_icon = '📊',
     layout = 'wide'
 )
+
+abs.download_blob('presentation', 'model.pkl', 'model.pkl')
+abs.download_blob('presentation', 'dataset.csv', 'dataset.csv')
+abs.download_blob('presentation', 'dataset_modelo.csv', 'dataset_modelo.csv')
+abs.download_blob('presentation', 'lg_app_olist-min.jpeg', 'lg_app_olist-min.jpeg')
 
 var_model = "model"
 var_dataset = "dataset.csv"

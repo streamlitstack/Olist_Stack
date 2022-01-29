@@ -14,22 +14,6 @@ st.set_page_config(
     layout = 'wide'
 )
 
-#st.sidebar.image('/Users/jonathan_vieira/Programação/Cursos & Workshops/STACK/Projeto Stack Lab/projeto/App_Olist/lg_app_olist-min.jpeg', width=200)
-
-#Baixando os aquivos do Data Lake
-#client = Minio(
-#        "localhost:9000",
-#        access_key="minioadmin",
-#        secret_key="minioadmin",
-#        secure=False
-#    )
-
-#dataset e cluster.
-#client.fget_object("curated","model.pkl","model.pkl")
-#client.fget_object("curated","dataset.csv","dataset.csv")
-#client.fget_object("curated","base_modelo.csv","dataset_modelo.csv")
-
-
 var_model = "model"
 var_dataset = "dataset.csv"
 var_dataset_modelo = "dataset_modelo.csv"
@@ -44,7 +28,7 @@ dataset_modelo = pd.read_csv(var_dataset_modelo)
 
 print (dataset.head())
 
-#st.image("https://raw.githubusercontent.com/streamlitstack/olist_project//main/lg_app_olist-min.jpeg", width=100)
+st.image("lg_app_olist-min.jpeg", width=100)
 
 # título
 st.title("Olist Analytics")

@@ -36,8 +36,8 @@ model = load_model(var_model)
 #carregando o conjunto de dados.
 #dataset = pd.read_csv(var_dataset)
 dataset_modelo = pd.read_csv(var_dataset_modelo)
+dataset_modelo = dataset_modelo.drop('target', axis=1)
 dataset_cluster= pd.read_csv(var_cluster)
-
 
 print (dataset_modelo.head())
 
@@ -57,27 +57,23 @@ st.dataframe(dataset_modelo.head())
 #st.line_chart(data=var_sellers_in_out, use_container_width=True)
 
 
-#fig= px.scatter_3d(dataset_cluster,x='media_produtos_por_pedido',y='media_valor_pedido_sem_frete',z='dias_atividade',color='cluster')
-#st.plotly_chart(fig, use_container_width=True)
+fig= px.scatter_3d(dataset_cluster,x='media_produtos_por_pedido',y='media_valor_pedido_sem_frete',z='dias_atividade',color='cluster')
+st.plotly_chart(fig, use_container_width=True)
 
-st.subheader("Defina os atributos do empregado para predição de turnover")
+#st.subheader("Defina os atributos do empregado para predição de turnover")
 
 # inserindo um botão na tela
 btn_predict = st.button("Realizar Classificação")
 
 if btn_predict:
-    data_teste = pd.DataFrame(dataset_modelo)
+    #data_teste = pd.DataFrame(dataset_modelo)
     
 
-
-
-
-    
     #imprime os dados de teste    
-    print(data_teste)
+    #print(data_teste)
 
     #realiza a predição
-    result = predict_model(model, data=data_teste)
+    result = predict_model(model, data=dataset_modelo)
     #pegando só coluna cluster da tabela df_cluster 
     clusters = dataset_cluster.filter(like='cluster')
     #concatenando com dataframe da predição

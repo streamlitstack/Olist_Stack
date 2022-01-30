@@ -35,7 +35,8 @@ model = load_model(var_model)
 #carregando o conjunto de dados.
 #dataset = pd.read_csv(var_dataset)
 dataset_modelo = pd.read_csv(var_dataset_modelo)
-dataset_modelo = dataset_modelo.drop('target', axis=1).set_index('id_vendedor')
+dataset_modelo = dataset_modelo.drop('target', axis=1)
+dataset_modelo= dataset_modelo.drop(dataset_modelo.columns[0], axis=1)
 
 
 dataset_cluster= pd.read_csv(var_cluster)

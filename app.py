@@ -6,6 +6,7 @@ import streamlit as st
 from pycaret.classification import load_model, predict_model
 import plotly.express as px
 import acessando_blob_storage as abs
+import seaborn as sns
 
 #configuração da janela
 st.set_page_config(
@@ -23,6 +24,7 @@ abs.download_blob('presentation', 'lg_app_olist-min.jpeg', 'lg_app_olist-min.jpe
 var_model = "model"
 var_dataset = "dataset.csv"
 var_dataset_modelo = "dataset_modelo.csv"
+var_sellers_in_out= "sellers_in_out.csv"
 
 #carregando o modelo treinado.
 model = load_model(var_model)
@@ -44,6 +46,8 @@ st.markdown("Este é um Data App utilizado para exibir a solução de Machine Le
 
 # imprime o conjunto de dados usado
 st.dataframe(dataset.head())
+
+sns.lineplot(data=var_sellers_in_out)
 
 fig= px.scatter_3d(dataset,x='dias_na_base',y='products_by_orders',z='ticket_medio',color='inativo')
 

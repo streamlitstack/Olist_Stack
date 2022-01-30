@@ -73,11 +73,11 @@ if btn_predict:
     #print(data_teste)
 
     #realiza a predição
-    result = predict_model(model, data=dataset_modelo)
+    result = predict_model(model, data=dataset_modelo, raw_score=True)
     #pegando só coluna cluster da tabela df_cluster 
     clusters = dataset_cluster.filter(like='cluster')
     #concatenando com dataframe da predição
-    df_final = pd.concat([clusters, result], axis=1)
+    df_final = pd.concat([result, clusters], axis=1)
 
 
 

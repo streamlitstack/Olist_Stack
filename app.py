@@ -1,9 +1,8 @@
-#carregando as bibliotecas
+#Carregar bibliotecas
+
 import pandas as pd
 import streamlit as st
-#from minio import Minio
-#import joblib
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from pycaret.classification import load_model, predict_model
 import plotly.express as px
 import acessando_blob_storage as abs
@@ -15,6 +14,7 @@ st.set_page_config(
     layout = 'wide'
 )
 
+#Carregar Bases
 abs.download_blob('presentation', 'model.pkl', 'model.pkl')
 abs.download_blob('presentation', 'dataset.csv', 'dataset.csv')
 abs.download_blob('presentation', 'dataset_modelo.csv', 'dataset_modelo.csv')
@@ -84,5 +84,3 @@ if btn_predict:
         "text/csv",
         key='download-csv'
     )
-
-

@@ -16,27 +16,33 @@ st.set_page_config(
 )
 
 #Carregar Bases
-abs.download_blob('presentation', 'model.pkl', 'model.pkl')
-abs.download_blob('presentation', 'dataset.csv', 'dataset.csv')
-abs.download_blob('presentation', 'dataset_modelo.csv', 'dataset_modelo.csv')
-abs.download_blob('presentation', 'lg_app_olist-min.jpeg', 'lg_app_olist-min.jpeg')
+abs.download_blob('presentation', 'final_model.pkl', 'final_model.pkl') # Modelo de Classificação
+#abs.download_blob('presentation', 'tb_final.csv', 'tb_final.csv') # Tabela Matriz
+abs.download_blob('presentation', 'sellers_in_out.csv', 'sellers_in_out.csv') # Tabela de entradas e saídas 
+abs.download_blob('presentation', 'df_cluster.csv', 'df_cluster.csv') # Tabela Cluster 
+abs.download_blob('presentation', 'tb_base.csv', 'tb_base.csv') # Tabela que alimenta modelo
+abs.download_blob('presentation', 'banner.jpeg', 'banner.jpeg') # Banner do App
 
-var_model = "model"
-var_dataset = "dataset.csv"
-var_dataset_modelo = "dataset_modelo.csv"
+var_model = "final_model"
+#var_dataset = "tb_final.csv"
+var_dataset_modelo = "tb_base.csv"
 var_sellers_in_out= "sellers_in_out.csv"
+var_cluster="df_cluster.csv"
 
 #carregando o modelo treinado.
 model = load_model(var_model)
 
 
 #carregando o conjunto de dados.
-dataset = pd.read_csv(var_dataset)
+#dataset = pd.read_csv(var_dataset)
 dataset_modelo = pd.read_csv(var_dataset_modelo)
+dataset_cluster= pd.read_csv(var_cluster)
 
-print (dataset.head())
 
-st.image("lg_app_olist-min.jpeg", width=100)
+print (dataset_modelo.head())
+
+#st.image("banner.jpeg", width=100)
+st.image("banner.jpeg")
 
 # título
 st.title("Olist Analytics")
@@ -45,13 +51,14 @@ st.title("Olist Analytics")
 st.markdown("Este é um Data App utilizado para exibir a solução de Machine Learning para Olist Analytics.")
 
 # imprime o conjunto de dados usado
-st.dataframe(dataset.head())
+st.dataframe(dataset_modelo.head())
 
-sns.lineplot(data=var_sellers_in_out)
 
-fig= px.scatter_3d(dataset,x='dias_na_base',y='products_by_orders',z='ticket_medio',color='inativo')
+#st.line_chart(data=var_sellers_in_out, use_container_width=True)
 
-st.plotly_chart(fig, use_container_width=True)
+
+#fig= px.scatter_3d(dataset_cluster,x='media_produtos_por_pedido',y='media_valor_pedido_sem_frete',z='dias_atividade',color='cluster')
+#st.plotly_chart(fig, use_container_width=True)
 
 st.subheader("Defina os atributos do empregado para predição de turnover")
 
@@ -71,15 +78,21 @@ if btn_predict:
 
     #realiza a predição
     result = predict_model(model, data=data_teste)
-    
-    st.write(result)
+    #pegando só coluna cluster da tabela df_cluster 
+    clusters = dataset_cluster.filter(like='cluster')
+    #concatenando com dataframe da predição
+    df_final = pd.concat([clusters, result], axis=1)
+
+
+
+    st.write(df_final)
 
     @st.cache
     def convert_df(dataset):
         return dataset.to_csv().encode('utf-8')
 
 
-    csv = convert_df(result)
+    csv = convert_df(df_final)
 
     st.download_button(
         "Press to Download",

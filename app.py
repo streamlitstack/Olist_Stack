@@ -17,14 +17,13 @@ st.set_page_config(
 
 #Carregar Bases
 abs.download_blob('presentation', 'final_model.pkl', 'final_model.pkl') # Modelo de Classificação
-#abs.download_blob('presentation', 'tb_final.csv', 'tb_final.csv') # Tabela Matriz
 abs.download_blob('presentation', 'sellers_in_out.csv', 'sellers_in_out.csv') # Tabela de entradas e saídas 
 abs.download_blob('presentation', 'df_cluster.csv', 'df_cluster.csv') # Tabela Cluster 
 abs.download_blob('presentation', 'tb_base.csv', 'tb_base.csv') # Tabela que alimenta modelo
 abs.download_blob('presentation', 'banner.jpeg', 'banner.jpeg') # Banner do App
 
 var_model = "final_model"
-#var_dataset = "tb_final.csv"
+
 var_dataset_modelo = "tb_base.csv"
 var_sellers_in_out= "sellers_in_out.csv"
 var_cluster="df_cluster.csv"
@@ -36,7 +35,9 @@ model = load_model(var_model)
 #carregando o conjunto de dados.
 #dataset = pd.read_csv(var_dataset)
 dataset_modelo = pd.read_csv(var_dataset_modelo)
-dataset_modelo = dataset_modelo.drop('target', axis=1)
+dataset_modelo = dataset_modelo.drop('target', axis=1).set_index('id_vendedor')
+
+
 dataset_cluster= pd.read_csv(var_cluster)
 
 print (dataset_modelo.head())

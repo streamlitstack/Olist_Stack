@@ -164,7 +164,7 @@ if btn_predict:
     df_hist_cluster2=df_final_hist.loc[df_final_hist['cluster']==2]
 
     
-    fig10=plt.figure(figsize=(15,12))
+    fig10=plt.figure(figsize=(25,10))
     sns.set(font_scale=1.4)
     #cluster 0
     plt.subplot(3,1,1);sns.histplot(df_hist_cluster0['Score_1'])
@@ -179,6 +179,7 @@ if btn_predict:
     plt.title('Cluster 2')
     
     plt.suptitle('Distruibuição das Probabilidades dos Sellers deixarem a Olist')
+    plt.tight_layout()
     st.pyplot(fig10)
 
 

@@ -113,13 +113,13 @@ st.plotly_chart(fig4, use_container_width=True)
 
 #------------------------------------------------------------------------
 
-target = dataset_modelo[['id_vendedor', 'target']]
+target = dataset_modelo_target[['id_vendedor', 'target']]
 dataset_target_cluster = pd.concat([dataset_cluster, target], axis=1) 
 
 
 df_grafico_finalx2 = pd.DataFrame(dataset_target_cluster.groupby(['cluster', 'target'])['id_vendedor'].count()).reset_index()
 
-fig30 = px.bar(df_grafico_final, x="cluster", y="id_vendedor", text="id_vendedor",color="Label", hover_data=['cluster'], barmode = 'stack',  labels={"id_vendedor": "Qtde de Sellers"})
+fig30 = px.bar(df_grafico_finalx2, x="cluster", y="id_vendedor", text="id_vendedor",color="Label", hover_data=['cluster'], barmode = 'stack',  labels={"id_vendedor": "Qtde de Sellers"})
 fig30.update_traces(textposition='inside')
 fig30.update_layout(title_text='Classificacão dos Seller por Cluster', title_x=0.5, title_font_size=25) 
 st.plotly_chart(fig30, use_container_width=True)

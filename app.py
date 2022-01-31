@@ -131,8 +131,8 @@ if btn_predict:
     df_hist_cluster2=df_final_hist.loc[df_final_hist['cluster']==2]
 
     
-    fig10=plt.figure(figsize=(15,12))
+    fig10=plt.figure(figsize=(10,6))
     plt.subplot(3,1,1);sns.histplot(df_hist_cluster0['Score_1'])
-    plt.subplot(3,2,1);sns.histplot(df_hist_cluster1['Score_1'])
-    plt.subplot(3,3,1);sns.histplot(df_hist_cluster2['Score_1'])
+    plt.subplot(3,1,2);sns.histplot(df_hist_cluster1['Score_1'])
+    plt.subplot(3,1,3);sns.histplot(df_hist_cluster2['Score_1'])
     st.pyplot(fig10)

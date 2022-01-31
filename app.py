@@ -122,5 +122,5 @@ if btn_predict:
     fig7 = px.bar(df_grafico_final, x="cluster", y="id_vendedor", color="Label", hover_data=['cluster'], barmode = 'stack')
     st.plotly_chart(fig7, use_container_width=True)
 
-    fig8 = px.histogram(df_grafico_final, x="Score_1")
+    fig8 = px.histogram(df_final, x="Score_1")
     st.plotly_chart(fig8, use_container_width=True)

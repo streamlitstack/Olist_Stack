@@ -130,12 +130,11 @@ if btn_predict:
     df_hist_cluster1=df_final_hist.loc[df_final_hist['cluster']==1]
     df_hist_cluster2=df_final_hist.loc[df_final_hist['cluster']==2]
 
+    
+    fig10, ax = plt.subplots(1,3)
+    ax.hist(df_hist_cluster0, bins=20)
+    ax.hist(df_hist_cluster1, bins=20)
+    ax.hist(df_hist_cluster2, bins=20)
 
-    
-    fig9=plt.figure(figsize=(8,6))
-    plt.hist(df_hist_cluster0, bins=100, alpha=0.5, label="Cluster 0")
-    plt.hist(df_hist_cluster1, bins=100, alpha=0.5, label="Cluster 1")
-    plt.hist(df_hist_cluster2, bins=100, alpha=0.5, label="Cluster 2")
-    st.pyplot(fig9)
-    
+    st.pyplot(fig10)
     

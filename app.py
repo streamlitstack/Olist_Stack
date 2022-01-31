@@ -122,7 +122,7 @@ df_grafico_finalx2 = pd.DataFrame(dataset_target_cluster.groupby(['cluster', 'ta
 
 fig30 = px.bar(df_grafico_finalx2, x="cluster", y="id_vendedor", text="id_vendedor",color="target", hover_data=['cluster'], barmode = 'stack',  labels={"id_vendedor": "Qtde de Sellers"})
 fig30.update_traces(textposition='inside')
-fig30.update_layout(title_text='Classificacão dos Sellers por Cluster', title_x=0.5, title_font_size=25) 
+fig30.update_layout(title_text='Distribuição dos Sellers por Cluster', title_x=0.5, title_font_size=25) 
 st.plotly_chart(fig30, use_container_width=True)
 
 
@@ -155,7 +155,7 @@ if btn_predict:
     df_final_final = df_final_final.drop('target', axis=1).reset_index()
 
 #------------------------------------------------------
-    st.header("Resultados da Classificação")
+    st.subheader("Resultados da Classificação")
     st.markdown("""---""")
 
     df_grafico_final = pd.DataFrame(df_final_final_graph.groupby(['cluster', 'Label'])['id_vendedor'].count()).reset_index()

@@ -140,6 +140,7 @@ if btn_predict:
     df_final = pd.concat([df_final, target], axis=1)
     #filtrando só quem tem probabilidade de sair e que ainda não saiu
     df_final_final = df_final[(df_final.target==0) & (df_final.Label==1)]
+    df_final_final_graph= df_final[(df_final.target==0)]# base para grafico
     #dropando coluna target
     df_final_final = df_final_final.drop('target', axis=1).reset_index()
 
@@ -163,11 +164,11 @@ if btn_predict:
         key='download-csv'
     )
 
-    df_grafico_final = pd.DataFrame(df_final_final.groupby(['cluster', 'Label'])['id_vendedor'].count()).reset_index()
+    df_grafico_final = pd.DataFrame(df_final_final_graph.groupby(['cluster', 'Label'])['id_vendedor'].count()).reset_index()
 
     fig7 = px.bar(df_grafico_final, x="cluster", y="id_vendedor", color="Label", hover_data=['cluster'], barmode = 'stack')
     st.plotly_chart(fig7, use_container_width=True)
-
+#------------------------------------------------------
 
     df_final_hist=df_final_final.loc[df_final_final['Label']==1]
     df_hist_cluster0=df_final_hist.loc[df_final_hist['cluster']==0]

@@ -169,7 +169,7 @@ if btn_predict:
     plt.subplot(3,1,1);sns.histplot(df_hist_cluster0['Score_1'])
     plt.subplot(3,1,2);sns.histplot(df_hist_cluster1['Score_1'])
     plt.subplot(3,1,3);sns.histplot(df_hist_cluster2['Score_1'])
-    fig10.set_title('Distruibuição das Probabilidades dos Sellers deixarem a Olist')
+    plt.title('Distruibuição das Probabilidades dos Sellers deixarem a Olist')
     st.pyplot(fig10)
 
 

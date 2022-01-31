@@ -22,15 +22,15 @@ abs.download_blob('presentation', 'final_model.pkl', 'final_model.pkl') # Modelo
 abs.download_blob('presentation', 'sellers_in_out4.csv', 'sellers_in_out4.csv') # Tabela de entradas e saídas 
 abs.download_blob('presentation', 'df_cluster.csv', 'df_cluster.csv') # Tabela Cluster 
 abs.download_blob('presentation', 'tb_base.csv', 'tb_base.csv') # Tabela que alimenta modelo
-abs.download_blob('presentation', 'banner.jpeg', 'banner.jpeg') # Banner do App
-abs.download_blob('presentation', 'retention.csv', 'retention.csv') # Banner do App
+abs.download_blob('presentation', 'Logo.jpeg', 'Logo.jpeg') # Banner do App
+abs.download_blob('presentation', 'retention1.csv', 'retention1.csv') # Banner do App
 
 var_model = "final_model"
 
 var_dataset_modelo = "tb_base.csv"
 var_sellers_in_out= "sellers_in_out4.csv"
 var_cluster="df_cluster.csv"
-var_retention="retention.csv"
+var_retention="retention1.csv"
 
 #carregando o modelo treinado.
 model = load_model(var_model)
@@ -47,10 +47,8 @@ dataset_cluster= pd.read_csv(var_cluster)
 dataset_sellers=pd.read_csv(var_sellers_in_out)
 dataset_retention=pd.read_csv(var_retention, index_col=0)
 
-#print (dataset_modelo.head())
 
-#st.image("banner.jpeg", width=100)
-st.image("banner.jpeg")
+st.image("Logo.jpeg", width=120)
 
 # título
 st.title("Olist Analytics")
@@ -61,27 +59,58 @@ st.markdown("Este é um Data App utilizado para exibir a solução de Machine Le
 # imprime o conjunto de dados usado
 #st.dataframe(dataset_modelo.head())
 
-fig = px.line(dataset_sellers, x="data_pedido", y=["sellers_in", "sellers_out"], title='Sellers In x Out')
+# Gráfico entradas e saídas de Sellers-------------------------------------------------------------------------------
+fig = px.line(dataset_sellers, x="data_pedido", y=["sellers_in", "sellers_out"], title='Entrada e Saída de Sellers na Olist', labels={"value": "Qtde de Sellers","data_pedido": "Mês","variable": "Sellers Status"})
+
+fig.update_layout(title_text='Entrada e Saída de Sellers na Olist', title_x=0.5, title_font_size=25, 
+legend=dict(
+        x=0.9,  # value must be between 0 to 1.
+        y=.1,   # value must be between 0 to 1.
+        traceorder="normal",
+        font=dict(
+            family="sans-serif",
+            size=12,
+            color="black")))
+
 st.plotly_chart(fig, use_container_width=True)
+st.markdown("""---""")
+# histograma das saídas dos sellers-------------------------------------------------------------------------------
+fig2 = px.histogram(dataset_modelo, x="dias_atividade", labels={"count": "Qtde de Sellers","dias_atividade": "Tempo de permanência (dias)"})
 
-fig2 = px.histogram(dataset_modelo, x="dias_atividade")
+fig2.update_layout(title_text='Tempo de Permanência dos Sellers na Olist', title_x=0.5, title_font_size=25, 
+legend=dict(
+        x=0.9,  # value must be between 0 to 1.
+        y=.1,   # value must be between 0 to 1.
+        traceorder="normal",
+        font=dict(
+            family="sans-serif",
+            size=12,
+            color="black")))
+
 st.plotly_chart(fig2, use_container_width=True)
+st.markdown("""---""")
+# Analise de Retenção dos sellers-------------------------------------------------------------------------------
 
 
 
-fig6, ax = plt.subplots(figsize=(17,8))
-sns.heatmap(dataset_retention, ax=ax, annot=True, fmt = '.0%', cmap='summer_r')
+fig6, ax = plt.subplots(figsize=(20,10))
+sns.set(font_scale=1.4)
+sns.heatmap(dataset_retention, ax=ax, annot=True, fmt = '.0%', vmin= 0.0, vmax=0.5, cmap='summer_r', annot_kws={"size": 14} )
 plt.style.use('fivethirtyeight')
-plt.title('Retention Rates')
+plt.ylabel('Cohort Group', fontsize = 15) # y-axis label with fontsize 15
+plt.xlabel('Cohort Period', fontsize = 15) # y-axis label with fontsize 15
+plt.title('Cohort Analysis (%) - Retention Rates', fontsize=20)
 st.pyplot(fig6)
-
-
+st.markdown("""---""")
+# Clusterização dos Sellers-------------------------------------------------------------------------------
 
 fig4= px.scatter_3d(dataset_cluster,x='media_produtos_por_pedido',y='media_valor_pedido_sem_frete',z='dias_atividade',color='cluster')
-
+fig4.update_layout(title_text='Clusterização dos Sellers', title_x=0.5, title_font_size=25) 
 st.plotly_chart(fig4, use_container_width=True)
 
 #st.subheader("Defina os atributos do empregado para predição de turnover")
+
+st.markdown("""---""")
 
 # inserindo um botão na tela
 btn_predict = st.button("Realizar Classificação")

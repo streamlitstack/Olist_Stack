@@ -141,7 +141,7 @@ if btn_predict:
     #filtrando só quem tem probabilidade de sair e que ainda não saiu
     df_final_final = df_final[(df_final.target==0) & (df_final.Label==1)]
     #dropando coluna target
-    df_final_final = df_final_final.drop('target', axis=1)
+    df_final_final = df_final_final.drop('target', axis=1).reset_index()
 
 
 

@@ -145,7 +145,7 @@ if btn_predict:
     df_final_final = df_final_final.drop('target', axis=1).reset_index()
 
 #------------------------------------------------------
-
+    st.header("Resultados da Classificação")
     df_grafico_final = pd.DataFrame(df_final_final_graph.groupby(['cluster', 'Label'])['id_vendedor'].count()).reset_index()
 
     fig7 = px.bar(df_grafico_final, x="cluster", y="id_vendedor", color="Label", hover_data=['cluster'], barmode = 'stack')

@@ -117,6 +117,8 @@ if btn_predict:
         key='download-csv'
     )
 
-    fig4= px.scatter_3d(df_final,x='media_produtos_por_pedido',y='media_valor_pedido_sem_frete',z='dias_atividade',color='Label')
+    df_grafico_final = pd.DataFrame(df_final.groupby(['cluster', 'Label'])['id_vendedor'].count()).reset_index()
 
-    st.plotly_chart(fig4, use_container_width=True)
+    fig7 = px.bar(df_grafico_final, x="cluster", y="id_vendedor", color="Label",
+            hover_data=['cluster'], barmode = 'stack')
+    st.plotly_chart(fig7, use_container_width=True)

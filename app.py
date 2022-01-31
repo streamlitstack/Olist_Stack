@@ -40,6 +40,7 @@ model = load_model(var_model)
 #dataset = pd.read_csv(var_dataset)
 dataset_modelo = pd.read_csv(var_dataset_modelo)
 dataset_modelo = dataset_modelo.drop('target', axis=1)
+dataset_modelo_target = pd.read_csv(var_dataset_modelo)
 dataset_modelo= dataset_modelo.drop(dataset_modelo.columns[0], axis=1)
 
 
@@ -47,17 +48,24 @@ dataset_cluster= pd.read_csv(var_cluster)
 dataset_sellers=pd.read_csv(var_sellers_in_out)
 dataset_retention=pd.read_csv(var_retention, index_col=0)
 
+#------------------------------------------
+#col1, mid, col2 = st.columns([1,1,1])
+#with col1:
+#    st.image('Logo.jpeg', width=120)
+#with col2:
+#    st.title("Olist Analytics")
 
-st.image("Logo.jpeg", width=120)
+col1, col2, col3 = st.columns([1,6,1])
 
-# título
-st.title("Olist Analytics")
+with col1:st.image('Logo.jpeg', width=100)
+
+with col2:st.title("Olist Data App - _Sellers Retention Analysis_")
+
+with col3:st.write("")
 
 # subtítulo
-st.markdown("Este é um Data App utilizado para exibir a solução de Machine Learning para Olist Analytics.")
-
-# imprime o conjunto de dados usado
-#st.dataframe(dataset_modelo.head())
+st.markdown("Esse é um Data App para análise do comportamento dos vendedores da Olist e classificação daqueles que possuem alta probabilidade de deixar a empresa")
+st.markdown('***')
 
 # Gráfico entradas e saídas de Sellers-------------------------------------------------------------------------------
 fig = px.line(dataset_sellers, x="data_pedido", y=["sellers_in", "sellers_out"], title='Entrada e Saída de Sellers na Olist', labels={"value": "Qtde de Sellers","data_pedido": "Mês","variable": "Sellers Status"})
@@ -101,6 +109,7 @@ plt.ylabel('Cohort Group', fontsize = 15) # y-axis label with fontsize 15
 plt.xlabel('Cohort Period', fontsize = 15) # y-axis label with fontsize 15
 plt.title('Cohort Analysis (%) - Retention Rates', fontsize=20)
 st.pyplot(fig6)
+
 st.markdown("""---""")
 # Clusterização dos Sellers-------------------------------------------------------------------------------
 
@@ -112,16 +121,12 @@ st.plotly_chart(fig4, use_container_width=True)
 
 st.markdown("""---""")
 
+st.markdown("""Realizar Classificação dos Seller com alta probabilidade de deixar a Olist""")
 # inserindo um botão na tela
 btn_predict = st.button("Realizar Classificação")
 
 if btn_predict:
-    #data_teste = pd.DataFrame(dataset_modelo)
     
-
-    #imprime os dados de teste    
-    #print(data_teste)
-
     #realiza a predição
     result = predict_model(model, data=dataset_modelo, raw_score=True)
     #pegando só coluna cluster da tabela df_cluster 
@@ -129,16 +134,26 @@ if btn_predict:
     #concatenando com dataframe da predição
     df_final = pd.concat([result, clusters], axis=1)
 
+    #pegando coluna target do df inicial
+    target = dataset_modelo_target.filter(like='target')
+    #concatenando target com df final
+    df_final = pd.concat([df_final, target], axis=1)
+    #filtrando só quem tem probabilidade de sair e que ainda não saiu
+    df_final_final = df_final[(df_final.target==0) & (df_final.Label==1)]
+    #dropando coluna target
+    df_final_final = df_final_final.drop('target', axis=1)
 
 
-    st.write(df_final)
+
+
+    st.write(df_final_final)
 
     @st.cache
     def convert_df(dataset):
         return dataset.to_csv().encode('utf-8')
 
 
-    csv = convert_df(df_final)
+    csv = convert_df(df_final_final)
 
     st.download_button(
         "Press to Download",
@@ -148,13 +163,13 @@ if btn_predict:
         key='download-csv'
     )
 
-    df_grafico_final = pd.DataFrame(df_final.groupby(['cluster', 'Label'])['id_vendedor'].count()).reset_index()
+    df_grafico_final = pd.DataFrame(df_final_final.groupby(['cluster', 'Label'])['id_vendedor'].count()).reset_index()
 
     fig7 = px.bar(df_grafico_final, x="cluster", y="id_vendedor", color="Label", hover_data=['cluster'], barmode = 'stack')
     st.plotly_chart(fig7, use_container_width=True)
 
 
-    df_final_hist=df_final.loc[df_final['Label']==1]
+    df_final_hist=df_final_final.loc[df_final_final['Label']==1]
     df_hist_cluster0=df_final_hist.loc[df_final_hist['cluster']==0]
     df_hist_cluster1=df_final_hist.loc[df_final_hist['cluster']==1]
     df_hist_cluster2=df_final_hist.loc[df_final_hist['cluster']==2]

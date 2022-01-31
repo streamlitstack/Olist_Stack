@@ -168,22 +168,22 @@ if btn_predict:
     sns.set(font_scale=1.4)
     #cluster 0
     plt.subplot(3,1,1);sns.histplot(df_hist_cluster0['Score_1'])
-    plt.title('Cluster 0', fontsize=25)
+    plt.title('Cluster 0', fontsize=20)
     plt.xlabel("Probabilidade")
     plt.ylabel("Qtde Sellers")
     #Cluster 1
     plt.subplot(3,1,2);sns.histplot(df_hist_cluster1['Score_1'])
-    plt.title('Cluster 1', fontsize=25)
+    plt.title('Cluster 1', fontsize=20)
     plt.xlabel("Probabilidade")
     plt.ylabel("Qtde Sellers")
     
     #cluster 2
     plt.subplot(3,1,3);sns.histplot(df_hist_cluster2['Score_1'])
-    plt.title('Cluster 2', fontsize=25)
+    plt.title('Cluster 2', fontsize=20)
     plt.xlabel("Probabilidade")
     plt.ylabel("Qtde Sellers")
     
-    plt.suptitle('Distruibuição das Probabilidades dos Sellers deixarem a Olist')
+    plt.suptitle('Distruibuição das Probabilidades dos Sellers deixarem a Olist', fontsize=25)
     plt.tight_layout()
     st.pyplot(fig10)
 

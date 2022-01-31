@@ -144,11 +144,11 @@ if btn_predict:
     #dropando coluna target
     df_final_final = df_final_final.drop('target', axis=1).reset_index()
 
-
+#------------------------------------------------------
 
     df_grafico_final = pd.DataFrame(df_final_final_graph.groupby(['cluster', 'Label'])['id_vendedor'].count()).reset_index()
 
-    fig7 = px.bar(df_final_final_graph, x="cluster", y="id_vendedor", color="Label", hover_data=['cluster'], barmode = 'stack')
+    fig7 = px.bar(df_grafico_final, x="cluster", y="id_vendedor", color="Label", hover_data=['cluster'], barmode = 'stack')
     st.plotly_chart(fig7, use_container_width=True)
 #------------------------------------------------------
 

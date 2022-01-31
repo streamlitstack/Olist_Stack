@@ -146,31 +146,13 @@ if btn_predict:
 
 
 
-
-    st.write(df_final_final)
-
-    @st.cache
-    def convert_df(dataset):
-        return dataset.to_csv().encode('utf-8')
-
-
-    csv = convert_df(df_final_final)
-
-    st.download_button(
-        "Press to Download",
-        csv,
-        "file.csv",
-        "text/csv",
-        key='download-csv'
-    )
-
     df_grafico_final = pd.DataFrame(df_final_final_graph.groupby(['cluster', 'Label'])['id_vendedor'].count()).reset_index()
 
     fig7 = px.bar(df_grafico_final, x="cluster", y="id_vendedor", color="Label", hover_data=['cluster'], barmode = 'stack')
     st.plotly_chart(fig7, use_container_width=True)
 #------------------------------------------------------
 
-    df_final_hist=df_final_final.loc[df_final_final['Label']==1]
+    df_final_hist=df_grafico_final.loc[df_grafico_final['Label']==1]
     df_hist_cluster0=df_final_hist.loc[df_final_hist['cluster']==0]
     df_hist_cluster1=df_final_hist.loc[df_final_hist['cluster']==1]
     df_hist_cluster2=df_final_hist.loc[df_final_hist['cluster']==2]
@@ -181,3 +163,21 @@ if btn_predict:
     plt.subplot(3,1,2);sns.histplot(df_hist_cluster1['Score_1'])
     plt.subplot(3,1,3);sns.histplot(df_hist_cluster2['Score_1'])
     st.pyplot(fig10)
+
+
+    @st.cache
+    def convert_df(dataset):
+        return dataset.to_csv().encode('utf-8')
+
+
+    csv = convert_df(df_final_final)
+
+    st.write(df_final_final)
+
+    st.download_button(
+        "Press to Download",
+        csv,
+        "file.csv",
+        "text/csv",
+        key='download-csv'
+    )

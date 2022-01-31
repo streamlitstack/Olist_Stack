@@ -173,6 +173,7 @@ if btn_predict:
     df_hist_cluster1=df_final_hist.loc[df_final_hist['cluster']==1]
     df_hist_cluster2=df_final_hist.loc[df_final_hist['cluster']==2]
 
+    st.markdown("""---""")
     
     fig10=plt.figure(figsize=(25,10))
     sns.set(font_scale=1.4)

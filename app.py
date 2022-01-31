@@ -152,7 +152,7 @@ if btn_predict:
     st.plotly_chart(fig7, use_container_width=True)
 #------------------------------------------------------
 
-    df_final_hist=df_grafico_final.loc[df_grafico_final['Label']==1]
+    df_final_hist=df_grafico_final.loc[df_final_final_graph['Label']==1]
     df_hist_cluster0=df_final_hist.loc[df_final_hist['cluster']==0]
     df_hist_cluster1=df_final_hist.loc[df_final_hist['cluster']==1]
     df_hist_cluster2=df_final_hist.loc[df_final_hist['cluster']==2]

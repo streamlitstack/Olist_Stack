@@ -111,6 +111,7 @@ fig4= px.scatter_3d(dataset_cluster,x='media_produtos_por_pedido',y='media_valor
 fig4.update_layout(title_text='Clusterização dos Sellers', title_x=0.5, title_font_size=25) 
 st.plotly_chart(fig4, use_container_width=True)
 
+st.markdown("""---""")
 #------------------------------------------------------------------------
 
 target = dataset_modelo_target[['id_vendedor', 'target']]
@@ -121,7 +122,7 @@ df_grafico_finalx2 = pd.DataFrame(dataset_target_cluster.groupby(['cluster', 'ta
 
 fig30 = px.bar(df_grafico_finalx2, x="cluster", y="id_vendedor", text="id_vendedor",color="target", hover_data=['cluster'], barmode = 'stack',  labels={"id_vendedor": "Qtde de Sellers"})
 fig30.update_traces(textposition='inside')
-fig30.update_layout(title_text='Classificacão dos Seller por Cluster', title_x=0.5, title_font_size=25) 
+fig30.update_layout(title_text='Classificacão dos Sellers por Cluster', title_x=0.5, title_font_size=25) 
 st.plotly_chart(fig30, use_container_width=True)
 
 
@@ -130,7 +131,7 @@ st.plotly_chart(fig30, use_container_width=True)
 
 st.markdown("""---""")
 
-st.subheader("""Realizar Classificação dos Seller com alta probabilidade de deixar a Olist""")
+st.subheader("""Realizar Classificação dos Sellers com alta probabilidade de deixar a Olist""")
 # inserindo um botão na tela
 btn_predict = st.button("Realizar Classificação")
 
@@ -204,6 +205,8 @@ if btn_predict:
 
     csv = convert_df(df_final_final)
 
+
+    st.header('Tabela de Classificação')
     st.write(df_final_final)
 
     st.download_button(

@@ -117,6 +117,6 @@ if btn_predict:
         key='download-csv'
     )
 
-    fig4= px.scatter_3d(dataset_cluster,x='media_produtos_por_pedido',y='media_valor_pedido_sem_frete',z='dias_atividade',color='Label')
+    fig4= px.scatter_3d(df_final,x='media_produtos_por_pedido',y='media_valor_pedido_sem_frete',z='dias_atividade',color='Label')
 
     st.plotly_chart(fig4, use_container_width=True)

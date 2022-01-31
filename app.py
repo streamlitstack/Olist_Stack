@@ -146,6 +146,8 @@ if btn_predict:
 
 #------------------------------------------------------
     st.header("Resultados da Classificação")
+    st.markdown("""---""")
+
     df_grafico_final = pd.DataFrame(df_final_final_graph.groupby(['cluster', 'Label'])['id_vendedor'].count()).reset_index()
 
     fig7 = px.bar(df_grafico_final, x="cluster", y="id_vendedor", text="id_vendedor",color="Label", hover_data=['cluster'], barmode = 'stack',  labels={"id_vendedor": "Qtde de Sellers"})
@@ -162,7 +164,8 @@ if btn_predict:
     df_hist_cluster2=df_final_hist.loc[df_final_hist['cluster']==2]
 
     
-    fig10=plt.figure(figsize=(10,6))
+    fig10=plt.figure(figsize=(20,10))
+    sns.set(font_scale=1.4)
     plt.subplot(3,1,1);sns.histplot(df_hist_cluster0['Score_1'])
     plt.subplot(3,1,2);sns.histplot(df_hist_cluster1['Score_1'])
     plt.subplot(3,1,3);sns.histplot(df_hist_cluster2['Score_1'])

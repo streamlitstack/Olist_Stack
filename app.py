@@ -1,4 +1,4 @@
-#Carregar bibliotecas
+# Carregar bibliotecas -----------------------------------------------------------------
 
 import pandas as pd
 import streamlit as st
@@ -10,7 +10,7 @@ import seaborn as sns
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
-#configuração da janela
+# configuração da janela ---------------------------------------------------------------
 st.set_page_config(
     page_title = 'Olist Store analytics',
     page_icon = '📊',
@@ -48,13 +48,7 @@ dataset_cluster= pd.read_csv(var_cluster)
 dataset_sellers=pd.read_csv(var_sellers_in_out)
 dataset_retention=pd.read_csv(var_retention, index_col=0)
 
-#------------------------------------------
-#col1, mid, col2 = st.columns([1,1,1])
-#with col1:
-#    st.image('Logo.jpeg', width=120)
-#with col2:
-#    st.title("Olist Analytics")
-
+#-------------------------------------------------------------
 col1, col2, col3 = st.columns([1,6,1])
 
 with col1:st.image('Logo.jpeg', width=100)
@@ -117,7 +111,22 @@ fig4= px.scatter_3d(dataset_cluster,x='media_produtos_por_pedido',y='media_valor
 fig4.update_layout(title_text='Clusterização dos Sellers', title_x=0.5, title_font_size=25) 
 st.plotly_chart(fig4, use_container_width=True)
 
-#st.subheader("Defina os atributos do empregado para predição de turnover")
+#------------------------------------------------------------------------
+
+target = dataset_modelo[['id_vendedor', 'target']]
+dataset_target_cluster = pd.concat([dataset_cluster, target], axis=1) 
+
+
+df_grafico_finalx2 = pd.DataFrame(dataset_target_cluster.groupby(['cluster', 'target'])['id_vendedor'].count()).reset_index()
+
+fig30 = px.bar(df_grafico_final, x="cluster", y="id_vendedor", text="id_vendedor",color="Label", hover_data=['cluster'], barmode = 'stack',  labels={"id_vendedor": "Qtde de Sellers"})
+fig30.update_traces(textposition='inside')
+fig30.update_layout(title_text='Classificacão dos Seller por Cluster', title_x=0.5, title_font_size=25) 
+st.plotly_chart(fig30, use_container_width=True)
+
+
+
+#------------------------------------------------------------------------
 
 st.markdown("""---""")
 

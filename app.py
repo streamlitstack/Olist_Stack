@@ -148,7 +148,7 @@ if btn_predict:
     st.header("Resultados da Classificação")
     df_grafico_final = pd.DataFrame(df_final_final_graph.groupby(['cluster', 'Label'])['id_vendedor'].count()).reset_index()
 
-    fig7 = px.bar(df_grafico_final, x="cluster", y="id_vendedor", color="Label", hover_data=['cluster'], barmode = 'stack', labels={"id_vendedor": "Qtde de Sellers"})
+    fig7 = px.bar(df_grafico_final, x="cluster", y="id_vendedor", color="Label", hover_data=['cluster'], barmode = 'stack', annot=True, labels={"id_vendedor": "Qtde de Sellers"})
     fig7.update_layout(title_text='Classificacão dos Seller por Cluster', title_x=0.5, title_font_size=25) 
     st.plotly_chart(fig7, use_container_width=True)
 

@@ -122,5 +122,16 @@ if btn_predict:
     fig7 = px.bar(df_grafico_final, x="cluster", y="id_vendedor", color="Label", hover_data=['cluster'], barmode = 'stack')
     st.plotly_chart(fig7, use_container_width=True)
 
-    fig8 = px.histogram(df_final, x="Score_1")
+
+    df_final_hist=df_final.loc[df_final['Label']==1]
+    df_hist_cluster0=df_final_hist.loc[df_final_hist['cluster']==0]
+    df_hist_cluster1=df_final_hist.loc[df_final_hist['cluster']==1]
+    df_hist_cluster2=df_final_hist.loc[df_final_hist['cluster']==2]
+
+
+    fig8, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(24,6))
+    px.histogram(df_hist_cluster0, x="Score_1", ax=ax1)
+    px.histogram(df_hist_cluster1, x="Score_1", ax=ax2)
+    px.histogram(df_hist_cluster2, x="Score_1", ax=ax3)
+    
     st.plotly_chart(fig8, use_container_width=True)

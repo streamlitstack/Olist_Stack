@@ -121,7 +121,7 @@ st.plotly_chart(fig4, use_container_width=True)
 
 st.markdown("""---""")
 
-st.markdown("""Realizar Classificação dos Seller com alta probabilidade de deixar a Olist""")
+st.subheader("""Realizar Classificação dos Seller com alta probabilidade de deixar a Olist""")
 # inserindo um botão na tela
 btn_predict = st.button("Realizar Classificação")
 
@@ -148,8 +148,11 @@ if btn_predict:
     st.header("Resultados da Classificação")
     df_grafico_final = pd.DataFrame(df_final_final_graph.groupby(['cluster', 'Label'])['id_vendedor'].count()).reset_index()
 
-    fig7 = px.bar(df_grafico_final, x="cluster", y="id_vendedor", color="Label", hover_data=['cluster'], barmode = 'stack')
+    fig7 = px.bar(df_grafico_final, x="cluster", y="id_vendedor", color="Label", hover_data=['cluster'], barmode = 'stack', labels={"id_vendedor": "Qtde de Sellers"})
+    fig7.update_layout(title_text='Classificacão dos Seller por Cluster', title_x=0.5, title_font_size=25) 
     st.plotly_chart(fig7, use_container_width=True)
+
+
 #------------------------------------------------------
 
     df_final_hist=df_final_final_graph.loc[df_final_final_graph['Label']==1]

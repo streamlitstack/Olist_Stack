@@ -7,6 +7,8 @@ from pycaret.classification import load_model, predict_model
 import plotly.express as px
 import acessando_blob_storage as abs
 import seaborn as sns
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 
 #configuração da janela
 st.set_page_config(
@@ -129,9 +131,11 @@ if btn_predict:
     df_hist_cluster2=df_final_hist.loc[df_final_hist['cluster']==2]
 
 
-    fig8, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(24,6))
-    px.histogram(df_hist_cluster0, x="Score_1", ax=ax1)
-    px.histogram(df_hist_cluster1, x="Score_1", ax=ax2)
-    px.histogram(df_hist_cluster2, x="Score_1", ax=ax3)
     
-    st.plotly_chart(fig8, use_container_width=True)
+    fig9=plt.figure(figsize=(8,6))
+    plt.hist(df_hist_cluster0, bins=100, alpha=0.5, label="Cluster 0")
+    plt.hist(df_hist_cluster1, bins=100, alpha=0.5, label="Cluster 1")
+    plt.hist(df_hist_cluster2, bins=100, alpha=0.5, label="Cluster 2")
+    st.pyplot(fig9)
+    
+    

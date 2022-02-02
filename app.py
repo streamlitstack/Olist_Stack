@@ -114,6 +114,7 @@ plt.style.use('fivethirtyeight')
 plt.ylabel('Cohort Group', fontsize = 15) # y-axis label with fontsize 15
 plt.xlabel('Cohort Period', fontsize = 15) # y-axis label with fontsize 15
 plt.title('Cohort Analysis (%) - Retention Rates', fontsize=20)
+plt.figure(facecolor='yellow')
 st.pyplot(fig2)
 
 st.markdown("""---""")

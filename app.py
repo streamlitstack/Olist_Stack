@@ -17,8 +17,6 @@ st.set_page_config(
     page_icon = '📊',
     layout = 'wide')
 
-[theme]
-base="dark"
 # Carregar bases de dados da Azure --------------------------------------------------------------------------------------------
 
 abs.download_blob('presentation', 'final_model.pkl', 'final_model.pkl') # Modelo de Classificação

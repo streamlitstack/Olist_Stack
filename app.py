@@ -1,4 +1,4 @@
-# Carregar bibliotecas -----------------------------------------------------------------
+# Carregar bibliotecas --------------------------------------------------------------------------------------------------------
 
 import pandas as pd
 import streamlit as st
@@ -10,14 +10,17 @@ import seaborn as sns
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
-# configuração da janela ---------------------------------------------------------------
-st.set_page_config(
-    page_title = 'Olist Store analytics',
-    page_icon = '📊',
-    layout = 'wide'
-)
+# configuração da janela Streamlit --------------------------------------------------------------------------------------------
 
-#Carregar Bases
+st.set_page_config(
+    page_title = 'Olist Data App',
+    page_icon = '📊',
+    layout = 'wide')
+
+[theme]
+base="dark"
+# Carregar bases de dados da Azure --------------------------------------------------------------------------------------------
+
 abs.download_blob('presentation', 'final_model.pkl', 'final_model.pkl') # Modelo de Classificação
 abs.download_blob('presentation', 'sellers_in_out4.csv', 'sellers_in_out4.csv') # Tabela de entradas e saídas 
 abs.download_blob('presentation', 'df_cluster.csv', 'df_cluster.csv') # Tabela Cluster 
@@ -25,73 +28,82 @@ abs.download_blob('presentation', 'tb_base.csv', 'tb_base.csv') # Tabela que ali
 abs.download_blob('presentation', 'Logo.jpeg', 'Logo.jpeg') # Banner do App
 abs.download_blob('presentation', 'retention1.csv', 'retention1.csv') # Banner do App
 
-var_model = "final_model"
+# Criar variáveis -------------------------------------------------------------------------------------------------------------
 
+var_model = "final_model"
 var_dataset_modelo = "tb_base.csv"
 var_sellers_in_out= "sellers_in_out4.csv"
 var_cluster="df_cluster.csv"
 var_retention="retention1.csv"
 
-#carregando o modelo treinado.
-model = load_model(var_model)
 
+# Carregar variáveis e efetuar leitura dos dados ------------------------------------------------------------------------------
 
-#carregando o conjunto de dados.
-#dataset = pd.read_csv(var_dataset)
+model = load_model(var_model) # carregar modelo de classificação treinado
 dataset_modelo = pd.read_csv(var_dataset_modelo)
 dataset_modelo = dataset_modelo.drop('target', axis=1)
 dataset_modelo_target = pd.read_csv(var_dataset_modelo)
 dataset_modelo= dataset_modelo.drop(dataset_modelo.columns[0], axis=1)
 
-
 dataset_cluster= pd.read_csv(var_cluster)
 dataset_sellers=pd.read_csv(var_sellers_in_out)
 dataset_retention=pd.read_csv(var_retention, index_col=0)
 
-#-------------------------------------------------------------
+# layout do Topo da Página ----------------------------------------------------------------------------------------------------
+
 col1, col2, col3 = st.columns([1,6,1])
-
 with col1:st.image('Logo.jpeg', width=100)
-
 with col2:st.title("Olist Data App - _Sellers Retention Analysis_")
-
 with col3:st.write("")
 
-# subtítulo
 st.markdown("Esse é um Data App para análise do comportamento dos vendedores da Olist e classificação daqueles que possuem alta probabilidade de deixar a empresa")
-st.markdown('***')
 
-# Gráfico entradas e saídas de Sellers-------------------------------------------------------------------------------
-fig = px.line(dataset_sellers, x="data_pedido", y=["sellers_in", "sellers_out"], title='Entrada e Saída de Sellers na Olist', labels={"value": "Qtde de Sellers","data_pedido": "Mês","variable": "Sellers Status"})
+st.markdown("""---""")
 
-fig.update_layout(title_text='Entrada e Saída de Sellers na Olist', title_x=0.5, title_font_size=25, 
-legend=dict(
+# Gráfico entradas e saídas de Sellers ----------------------------------------------------------------------------------------
+
+fig = px.line(
+    dataset_sellers, x="data_pedido", y=["sellers_in", "sellers_out"], 
+    title='Entrada e Saída de Sellers na Olist', 
+    labels={"value": "Qtde de Sellers","data_pedido": "Mês","variable": "Sellers Status"})
+
+fig.update_layout(
+    title_text='Entrada e Saída de Sellers na Olist', title_x=0.5, title_font_size=25, 
+    legend=dict(
         x=0.9,  # value must be between 0 to 1.
         y=.1,   # value must be between 0 to 1.
-        traceorder="normal",
-        font=dict(
-            family="sans-serif",
-            size=12,
-            color="black")))
+    traceorder="normal",
+    font=dict(
+        family="sans-serif",
+        size=12,
+        color="black")))
 
 st.plotly_chart(fig, use_container_width=True)
-st.markdown("""---""")
-# histograma das saídas dos sellers-------------------------------------------------------------------------------
-fig2 = px.histogram(dataset_modelo, x="dias_atividade", labels={"count": "Qtde de Sellers","dias_atividade": "Tempo de permanência (dias)"})
 
-fig2.update_layout(title_text='Tempo de Permanência dos Sellers na Olist', title_x=0.5, title_font_size=25, 
-legend=dict(
+st.markdown("""---""")
+
+# Histograma das saídas dos sellers---------------------------------------------------------------------------------------------
+
+fig1 = px.histogram(
+    dataset_modelo, x="dias_atividade", 
+    labels={"count": "Qtde de Sellers","dias_atividade": "Tempo de permanência (dias)"})
+
+fig1.update_layout(
+    title_text='Tempo de Permanência dos Sellers na Olist', title_x=0.5, title_font_size=25, 
+    legend=dict(
         x=0.9,  # value must be between 0 to 1.
         y=.1,   # value must be between 0 to 1.
-        traceorder="normal",
-        font=dict(
+    traceorder="normal",
+    font=dict(
             family="sans-serif",
             size=12,
             color="black")))
 
-st.plotly_chart(fig2, use_container_width=True)
+st.plotly_chart(fig1, use_container_width=True)
+
 st.markdown("""---""")
-# Analise de Retenção dos sellers-------------------------------------------------------------------------------
+
+# Analise de Retenção dos sellers-----------------------------------------------------------------------------------------------
 
 
 

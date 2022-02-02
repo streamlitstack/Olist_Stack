@@ -8,8 +8,9 @@ from pycaret.classification import load_model, predict_model
 import plotly.express as px
 import acessando_blob_storage as abs
 import seaborn as sns
-from plotly.subplots import make_subplots
-import plotly.graph_objects as go
+#from plotly.subplots import make_subplots
+#import plotly.graph_objects as go
+sns.set_style("white")
 
 # configuração da janela Streamlit --------------------------------------------------------------------------------------------
 

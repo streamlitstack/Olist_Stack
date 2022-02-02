@@ -64,6 +64,7 @@ fig = px.line(
     dataset_sellers, x="data_pedido", y=["sellers_in", "sellers_out"], 
     title='Entrada e Saída de Sellers na Olist', 
     labels={"value": "Qtde de Sellers","data_pedido": "Mês","variable": "Sellers Status"})
+fig.update_traces(line=dict(width=5))
 
 fig.update_layout(
     title_text='Entrada e Saída de Sellers na Olist', title_x=0.5, title_font_size=25, 
@@ -84,7 +85,7 @@ st.markdown("""---""")
 
 fig1 = px.histogram(
     dataset_modelo, x="dias_atividade", 
-    labels={"count": "Qtde de Sellers","dias_atividade": "Tempo de permanência (dias)"})
+    labels={"count": "Qtde de Sellers","dias_atividade": "Tempo de permanência (dias)"}, marginal = 'box',nbins=23, color_discrete_sequence=['#316195'])
 
 fig1.update_layout(
     title_text='Tempo de Permanência dos Sellers na Olist', title_x=0.5, title_font_size=25, 
@@ -107,7 +108,7 @@ with sns.axes_style("white"):
     fig2, ax = plt.subplots(figsize=(10, 5), sharey=True)
     sns.heatmap(
         dataset_retention, ax=ax, annot=True, fmt = '.0%',vmin= 0.0, vmax=0.5,
-        cmap='summer_r', annot_kws={"size": 8})
+        cmap='YlGnBu', annot_kws={"size": 8})
     
     ax.set(ylabel='Cohort Group',xlabel='Cohort Period')
     ax.set_title('Cohort Analysis (%) - Retention Rates')

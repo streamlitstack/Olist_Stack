@@ -124,7 +124,7 @@ fig3= px.scatter_3d(
     dataset_cluster,x='media_produtos_por_pedido',y='media_valor_pedido_sem_frete',z='dias_atividade',color='cluster')
 fig3.update_layout(title_text='Clusterização dos Sellers', title_x=0.5, title_font_size=25) 
 
-st.plotly_chart(fig4, use_container_width=True)
+st.plotly_chart(fig3, use_container_width=True)
 
 st.markdown("""---""")
 
@@ -135,14 +135,14 @@ dataset_target_cluster = pd.concat([dataset_cluster, target], axis=1)
 df_grafico_finalx2 = pd.DataFrame(dataset_target_cluster.groupby(['cluster', 'target'])['id_vendedor'].count()).reset_index()
 
 
-fig30 = px.bar(
+fig4 = px.bar(
     df_grafico_finalx2, x="cluster", y="id_vendedor", text="id_vendedor",
     color="target", hover_data=['cluster'], barmode = 'stack',  
     labels={"id_vendedor": "Qtde de Sellers"})
-fig30.update_traces(textposition='inside')
-fig30.update_layout(title_text='Distribuição dos Sellers por Cluster', title_x=0.5, title_font_size=25) 
+fig4.update_traces(textposition='inside')
+fig4.update_layout(title_text='Distribuição dos Sellers por Cluster', title_x=0.5, title_font_size=25) 
 
-st.plotly_chart(fig30, use_container_width=True)
+st.plotly_chart(fig4, use_container_width=True)
 
 st.markdown("""---""")
 
@@ -173,13 +173,13 @@ if btn_predict:
     
     df_grafico_final = pd.DataFrame(df_final_final_graph.groupby(['cluster', 'Label'])['id_vendedor'].count()).reset_index()
 
-    fig7 = px.bar(
+    fig5 = px.bar(
         df_grafico_final, x="cluster", y="id_vendedor", text="id_vendedor",color="Label",
         hover_data=['cluster'], barmode = 'stack',  labels={"id_vendedor": "Qtde de Sellers"})
-    fig7.update_traces(textposition='inside')
-    fig7.update_layout(title_text='Classificacão dos Seller por Cluster', title_x=0.5, title_font_size=25) 
+    fig5.update_traces(textposition='inside')
+    fig5.update_layout(title_text='Classificacão dos Seller por Cluster', title_x=0.5, title_font_size=25) 
     
-    st.plotly_chart(fig7, use_container_width=True)
+    st.plotly_chart(fig5, use_container_width=True)
 
     # Gráfico de classificação dos Sellers por Cluster -------------------------------------------------------------------------
 
@@ -192,7 +192,7 @@ if btn_predict:
 
     # Distribuição das Probabilidades dos Sellers deixarem a Olist -------------------------------------------------------------
 
-    fig10=plt.figure(figsize=(25,10))
+    fig6=plt.figure(figsize=(25,10))
     sns.set(font_scale=1.4)
     #cluster 0
     plt.subplot(3,1,1);sns.histplot(df_hist_cluster0['Score_1'])
@@ -212,7 +212,7 @@ if btn_predict:
     
     plt.suptitle('Distruibuição das Probabilidades dos Sellers deixarem a Olist', fontsize=25)
     plt.tight_layout()
-    st.pyplot(fig10)
+    st.pyplot(fig6)
 
     # Exibir resultado da Classificação em Tabela ------------------------------------------------------------------------------
 

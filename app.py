@@ -103,17 +103,17 @@ st.markdown("""---""")
 
 # Analise de Retenção dos sellers-----------------------------------------------------------------------------------------------
 
-fig2, ax = plt.subplots(facecolor=(.18, .31, .31), figsize=(20,10))
-sns.set(font_scale=1.4)
-sns.heatmap(
-    dataset_retention, ax=ax, annot=True, fmt = '.0%',vmin= 0.0, vmax=0.5,
-    cmap='summer_r', annot_kws={"size": 14})
-plt.style.use('fivethirtyeight')
-plt.ylabel('Cohort Group', fontsize = 15) # y-axis label with fontsize 15
-plt.xlabel('Cohort Period', fontsize = 15) # y-axis label with fontsize 15
-plt.title('Cohort Analysis (%) - Retention Rates', fontsize=20)
+with sns.axes_style("white"):
+    fig2, ax = plt.subplots(figsize=(10, 5), sharey=True)
+    sns.heatmap(
+        dataset_retention, ax=ax, annot=True, fmt = '.0%',vmin= 0.0, vmax=0.5,
+        cmap='summer_r', annot_kws={"size": 8})
+    
+    ax.set(ylabel='Cohort Group',xlabel='Cohort Period')
+    ax.set_title('Cohort Analysis (%) - Retention Rates')
 
-st.pyplot(fig2)
+    st.pyplot(fig2)
+
 
 st.markdown("""---""")
 

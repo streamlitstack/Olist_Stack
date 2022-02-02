@@ -8,9 +8,7 @@ from pycaret.classification import load_model, predict_model
 import plotly.express as px
 import acessando_blob_storage as abs
 import seaborn as sns
-#from plotly.subplots import make_subplots
-#import plotly.graph_objects as go
-sns.set_style("white")
+plt.rcParams.update({'axes.facecolor':'white'})
 
 # configuração da janela Streamlit --------------------------------------------------------------------------------------------
 
@@ -110,31 +108,14 @@ sns.set(font_scale=1.4)
 sns.heatmap(
     dataset_retention, ax=ax, annot=True, fmt = '.0%',vmin= 0.0, vmax=0.5,
     cmap='summer_r', annot_kws={"size": 14})
-#plt.style.use('fivethirtyeight')
+plt.style.use('fivethirtyeight')
 plt.ylabel('Cohort Group', fontsize = 15) # y-axis label with fontsize 15
 plt.xlabel('Cohort Period', fontsize = 15) # y-axis label with fontsize 15
 plt.title('Cohort Analysis (%) - Retention Rates', fontsize=20)
-ax.set_facecolor('pink') 
+
 st.pyplot(fig2)
 
 st.markdown("""---""")
-
-#-------
-# Analise de Retenção dos sellers-----------------------------------------------------------------------------------------------
-
-fig24=sns.heatmap(
-    dataset_retention, ax=ax, annot=True, fmt = '.0%',vmin= 0.0, vmax=0.5,
-    cmap='summer_r', annot_kws={"size": 14})
-#plt.ylabel('Cohort Group', fontsize = 15) # y-axis label with fontsize 15
-#plt.xlabel('Cohort Period', fontsize = 15) # y-axis label with fontsize 15
-#plt.title('Cohort Analysis (%) - Retention Rates', fontsize=20) 
-st.pyplot(fig24)
-
-st.markdown("""---""")
-
-
-#-------
-
 
 # Clusterização dos Sellers----------------------------------------------------------------------------------------------------
 

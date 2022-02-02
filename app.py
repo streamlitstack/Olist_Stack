@@ -110,7 +110,7 @@ sns.set(font_scale=1.4)
 sns.heatmap(
     dataset_retention, ax=ax, annot=True, fmt = '.0%',vmin= 0.0, vmax=0.5,
     cmap='summer_r', annot_kws={"size": 14})
-plt.style.use('fivethirtyeight')
+#plt.style.use('fivethirtyeight')
 plt.ylabel('Cohort Group', fontsize = 15) # y-axis label with fontsize 15
 plt.xlabel('Cohort Period', fontsize = 15) # y-axis label with fontsize 15
 plt.title('Cohort Analysis (%) - Retention Rates', fontsize=20)

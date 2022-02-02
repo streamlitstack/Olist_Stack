@@ -105,7 +105,8 @@ st.markdown("""---""")
 
 # Analise de Retenção dos sellers-----------------------------------------------------------------------------------------------
 
-fig2, ax = plt.subplots(figsize=(20,10), facecolor='blue')
+fig2, ax = plt.subplots(figsize=(20,10))
+fig2.savefig('temp.png', transparent=True)
 sns.set(font_scale=1.4)
 sns.heatmap(
     dataset_retention, ax=ax, annot=True, fmt = '.0%',vmin= 0.0, vmax=0.5,

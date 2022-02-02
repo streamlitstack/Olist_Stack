@@ -210,7 +210,7 @@ if btn_predict:
     plt.xlabel("Probabilidade")
     plt.ylabel("Qtde Sellers")
     
-    plt.suptitle('Distruibuição das Probabilidades dos Sellers deixarem a Olist', fontsize=25)
+    plt.suptitle('Distribuição das Probabilidades dos Sellers deixarem a Olist', fontsize=25)
     plt.tight_layout()
     st.pyplot(fig6)
 

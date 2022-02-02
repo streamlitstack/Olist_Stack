@@ -115,11 +115,28 @@ sns.heatmap(
 plt.ylabel('Cohort Group', fontsize = 15) # y-axis label with fontsize 15
 plt.xlabel('Cohort Period', fontsize = 15) # y-axis label with fontsize 15
 plt.title('Cohort Analysis (%) - Retention Rates', fontsize=20)
-ax.set_facecolor('pink')
-fig2.patch.set_facecolor('blue') 
+ax.set_facecolor('pink') 
 st.pyplot(fig2)
 
 st.markdown("""---""")
+
+#-------
+# Analise de Retenção dos sellers-----------------------------------------------------------------------------------------------
+
+fig2=sns.heatmap(
+    dataset_retention, ax=ax, annot=True, fmt = '.0%',vmin= 0.0, vmax=0.5,
+    cmap='summer_r', annot_kws={"size": 14})
+plt.ylabel('Cohort Group', fontsize = 15) # y-axis label with fontsize 15
+plt.xlabel('Cohort Period', fontsize = 15) # y-axis label with fontsize 15
+plt.title('Cohort Analysis (%) - Retention Rates', fontsize=20)
+ax.set_facecolor('pink') 
+st.pyplot(fig2)
+
+st.markdown("""---""")
+
+
+#-------
+
 
 # Clusterização dos Sellers----------------------------------------------------------------------------------------------------
 

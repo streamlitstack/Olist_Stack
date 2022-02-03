@@ -166,7 +166,7 @@ if btn_predict:
     df_final_final = df_final_final.drop('target', axis=1).reset_index()    # dropando coluna target
     df_final_final_graph= df_final[(df_final.target==0)]    # base para grafico
     
-    # Resumo
+    #Resumo de Impactos --------------------------------------------------------------------------------------------------------
 
     #media vendas por mes
     dataset_modelo['media_vendas_por_mes'] = np.round(((dataset_modelo['qtd_pedidos']/dataset_modelo['dias_na_base'])*30), 2)
@@ -178,12 +178,6 @@ if btn_predict:
     df_final_final['media_vendas_por_mes'] = np.round(((df_final_final['qtd_pedidos']/df_final_final['dias_na_base'])*30), 2)
     #media receita por mes
     df_final_final['media_receita_por_mes'] = df_final_final['media_vendas_por_mes']*df_final_final['media_valor_pedido_sem_frete']
-
-
-
-
-
-
 
 
     st.subheader('Resumo de impactos')

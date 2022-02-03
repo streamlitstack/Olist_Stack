@@ -169,13 +169,13 @@ if btn_predict:
     # Resumo
 
     #media vendas por mes
-    dataset_modelo['media_vendas_por_mes'] = np.round(((dataset_modelo['qtd_pedidos']/dataset_modelo['dias_na_base'])30), 2)
+    dataset_modelo['media_vendas_por_mes'] = np.round(((dataset_modelo['qtd_pedidos']/dataset_modelo['dias_na_base'])*30), 2)
     #media receita por mes
     dataset_modelo['media_receita_por_mes'] = dataset_modelo['media_vendas_por_mes']*dataset_modelo['media_valor_pedido_sem_frete']
 
 
     #media vendas por mes
-    df_final_final['media_vendas_por_mes'] = np.round(((df_final_final['qtd_pedidos']/df_final_final['dias_na_base'])30), 2)
+    df_final_final['media_vendas_por_mes'] = np.round(((df_final_final['qtd_pedidos']/df_final_final['dias_na_base'])*30), 2)
     #media receita por mes
     df_final_final['media_receita_por_mes'] = df_final_final['media_vendas_por_mes']*df_final_final['media_valor_pedido_sem_frete']
 

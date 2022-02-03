@@ -189,8 +189,8 @@ if btn_predict:
     st.subheader('Resumo de impactos')
 
     qtde_sellers=df_final_final['id_vendedor'].count()
-    receita_perdida=df_final_final['media_receita_por_mes'].sum().round(0)
-    perc_receita_perdida= ((df_final_final['media_receita_por_mes'].sum()/dataset_modelo['media_receita_por_mes'].sum())*100).round(2)
+    receita_perdida= dataset_modelo['media_receita_por_mes'].mean()*qtde_sellers
+    perc_receita_perdida= ((receita_perdida/dataset_modelo['media_receita_por_mes'].sum())*100).round(2)
 
     
     st.write('Qtde Sellers: {}'.format(qtde_sellers))

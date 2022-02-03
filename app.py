@@ -167,7 +167,7 @@ if btn_predict:
     
     # Resumo
     st.write('Resumo de impactos')
-    st.write(df_final_final['id_vendedor'].count())
+    st.write('Qtde Seller:'),st.write(df_final_final['id_vendedor'].count())
     st.write(df_final_final['receita_total'].sum())
     st.write(((df_final_final['receita_total'].sum()/dataset_modelo['receita_total'].sum())*100).round(2))
 

@@ -179,6 +179,7 @@ if btn_predict:
     #media receita por mes
     df_final_final['media_receita_por_mes'] = df_final_final['media_vendas_por_mes']*df_final_final['media_valor_pedido_sem_frete']
 
+    st.markdown("""---""")
 
     st.subheader('Resumo de impactos')
 
@@ -191,6 +192,8 @@ if btn_predict:
     st.write('Impacto na Receita / Mês:  ',"R$ {:,.2f}".format(receita_perdida))
     st.write('% Impacto na Receita / Mês: {}%'.format(perc_receita_perdida))
 
+    st.markdown("""---""")
+    
     st.subheader("Resultados da Classificação")
     
     st.markdown("""---""")

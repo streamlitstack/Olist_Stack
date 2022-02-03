@@ -8,6 +8,7 @@ from pycaret.classification import load_model, predict_model
 import plotly.express as px
 import acessando_blob_storage as abs
 import seaborn as sns
+import numpy as np
 
 
 # configuração da janela Streamlit --------------------------------------------------------------------------------------------
@@ -166,10 +167,29 @@ if btn_predict:
     df_final_final_graph= df_final[(df_final.target==0)]    # base para grafico
     
     # Resumo
+
+    #media vendas por mes
+    dataset_modelo['media_vendas_por_mes'] = np.round(((dataset_modelo['qtd_pedidos']/dataset_modelo['dias_na_base'])30), 2)
+    #media receita por mes
+    dataset_modelo['media_receita_por_mes'] = dataset_modelo['media_vendas_por_mes']*dataset_modelo['media_valor_pedido_sem_frete']
+
+
+    #media vendas por mes
+    df_final_final['media_vendas_por_mes'] = np.round(((df_final_final['qtd_pedidos']/df_final_final['dias_na_base'])30), 2)
+    #media receita por mes
+    df_final_final['media_receita_por_mes'] = df_final_final['media_vendas_por_mes']*df_final_final['media_valor_pedido_sem_frete']
+
+
+
+
+
+
+
+
     st.write('Resumo de impactos')
-    st.write('Qtde Seller:'),st.write(df_final_final['id_vendedor'].count())
-    st.write(df_final_final['receita_total'].sum())
-    st.write(((df_final_final['receita_total'].sum()/dataset_modelo['receita_total'].sum())*100).round(2))
+    st.write(df_final_final['id_vendedor'].count())
+    st.write(df_final_final['media_receita_por_mes'].sum())
+    st.write(((df_final_final['media_receita_por_mes'].sum()/dataset_modelo['media_receita_por_mes'].sum())*100).round(2))
 
 
     st.subheader("Resultados da Classificação")

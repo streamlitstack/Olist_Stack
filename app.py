@@ -186,16 +186,16 @@ if btn_predict:
 
 
 
-    st.write('Resumo de impactos')
+    st.subheader('Resumo de impactos')
 
     qtde_sellers=df_final_final['id_vendedor'].count()
     receita_perdida=df_final_final['media_receita_por_mes'].sum().round(0)
     perc_receita_perdida= ((df_final_final['media_receita_por_mes'].sum()/dataset_modelo['media_receita_por_mes'].sum())*100).round(2)
 
     
-    st.write('Qtde Sellers:{}'.format(qtde_sellers))
-    st.write('receita perdida:',"R${:,.2f}".format(receita_perdida))
-    st.write('%Impacto receita/mês:',perc_receita_perdida)
+    st.write('Qtde Sellers: {}'.format(qtde_sellers))
+    st.write('Impacto na Receita / Mês:  ',"R$ {:,.2f}".format(receita_perdida))
+    st.write('% Impacto na Receita / Mês: {}'.format(perc_receita_perdida))
 
     st.subheader("Resultados da Classificação")
     

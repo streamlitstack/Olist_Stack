@@ -193,7 +193,7 @@ if btn_predict:
     perc_receita_perdida= ((df_final_final['media_receita_por_mes'].sum()/dataset_modelo['media_receita_por_mes'].sum())*100).round(2)
 
     
-    st.write('Qtde Sellers:',{}.format(qtde_sellers))
+    st.write('Qtde Sellers:{}'.format(qtde_sellers))
     st.write('receita perdida:',"R${:,.2f}".format(receita_perdida))
     st.write('%Impacto receita/mês:',perc_receita_perdida)
 

@@ -165,6 +165,13 @@ if btn_predict:
     df_final_final = df_final_final.drop('target', axis=1).reset_index()    # dropando coluna target
     df_final_final_graph= df_final[(df_final.target==0)]    # base para grafico
     
+    # Resumo
+    st.write('Resumo de impactos')
+    st.write(df_final_final['id_vendedor'].count())
+    st.write(df_final_final['receita_total'].sum())
+    st.write((df_final_final['receita_total'].sum()).div(dataset_modelo['receita_total']))*100
+
+
     st.subheader("Resultados da Classificação")
     
     st.markdown("""---""")

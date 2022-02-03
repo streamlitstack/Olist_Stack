@@ -195,7 +195,7 @@ if btn_predict:
     
     st.write('Qtde Sellers: {}'.format(qtde_sellers))
     st.write('Impacto na Receita / Mês:  ',"R$ {:,.2f}".format(receita_perdida))
-    st.write('% Impacto na Receita / Mês: {}'.format(perc_receita_perdida))
+    st.write('% Impacto na Receita / Mês: {}%'.format(perc_receita_perdida))
 
     st.subheader("Resultados da Classificação")
     
